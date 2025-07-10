@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; frame-src *;">
+  <title>ShieldBrowse Sandbox</title>
+</head>
+<body style="margin:0;padding:0;height:100vh;width:100vw;">
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const target = urlParams.get('url') || 'https://wikipedia.org';
+
+    const iframe = document.createElement("iframe");
+    iframe.src = target;
+    iframe.style = "width:100%; height:100%; border:none;";
+    
+    iframe.onload = () => {
+      console.log("Iframe loaded:", target);
+    };
+
+    iframe.onerror = () => {
+      document.body.innerHTML = "<h2 style='color:red;text-align:center;'>❌ Failed to load URL in sandbox</h2>";
+    };
+
+    document.body.appendChild(iframe);
+  </script>
+</body>
+</html>
